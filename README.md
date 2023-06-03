@@ -57,6 +57,19 @@ spring.datasource.password: <这里改成你自己的数据库密码>
 **注意不要将自己的信息上传**\
 **注意不要将自己的信息上传**
 
+>src/main/resources/mybatis-config.xml
+
+```xml
+<configuration>
+    <environments default = "development">
+        <property name = "url" 
+                  value = "jdbc:mysql://localhost:3306/<数据库名称>"/>
+        <property name = "username" value = "<数据库用户名>"/>
+        <property name = "password" value = "<数据库密码>"/>
+    </environments>
+</configuration>
+```
+
 ### 2. 数据库表结构
 >src/main/resources/mapper/*Mapper.xml
 

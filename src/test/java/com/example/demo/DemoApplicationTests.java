@@ -31,7 +31,7 @@ class DemoApplicationTests {
   //
   //    }
   Logger log = Logger.getLogger(DemoApplicationTests.class);
-  //    @Test
+      @Test
   public void queryUserList() throws Exception {
     String resource = "mybatis-config.xml";
     InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -51,7 +51,7 @@ class DemoApplicationTests {
     }
   }
 
-  //    @Test
+      @Test
   public void selectUserInfo() throws Exception {
     String resource = "mybatis-config.xml";
     InputStream inputStream = Resources.getResourceAsStream(resource);
