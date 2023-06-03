@@ -5,6 +5,7 @@ import com.example.demo.dao.entity.ProjectEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import com.example.demo.common.utils.UUIDUtil;
 
@@ -18,6 +19,9 @@ public class ProjectService {
 
   public int addProjectInfo(ProjectEntity projectEntity, String userName) {
     projectEntity.setId(UUIDUtil.getOneUUID());
+//    projectEntity.setCreatedBy(userName);
+//    projectEntity.setProjectContent("default_content");
+    projectEntity.setCreationDate(new Date());
     int result = projectEntityMapper.insert(projectEntity);
     System.out.println("result:" + result);
     if (result != 0) {

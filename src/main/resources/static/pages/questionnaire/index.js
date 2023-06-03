@@ -82,5 +82,4 @@ const onDelProject = (pid) => {
       }
     })
   }
-  
 }
