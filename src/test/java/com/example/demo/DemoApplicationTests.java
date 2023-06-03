@@ -200,7 +200,7 @@ class DemoApplicationTests {
     projectEntity.setLastUpdatedBy("LS");
     projectEntity.setLastUpdateDate(new Date());
 
-    int i = projectEntityMapper.insert(projectEntity);
+    int i = projectEntityMapper.updateByPrimaryKeySelective(projectEntity);
     if (i == 0) {
       // 记录error级别的信息
     } else {
