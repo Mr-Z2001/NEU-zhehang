@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.QuestionnareEntityMapper">
+
+    <select id="queryQuestionnaireList" parameterType="java.lang.String"
+            resultType="com.example.demo.dao.entity.QuestionnaireEntity">
+        select *
+        from questionnaire_info;
+    </select>
+
+    <insert id="addQuestionnaire" parameterType="com.example.demo.dao.entity.QuestionnaireEntity">
+        insert into questionnaire_info
+        values (#{id,jdbcType=INTEGER},
+                #{questionnaireName,jdbcType=VARCHAR},
+                #{questionnaireDescription,jdbcType=VARCHAR},
+                #{questionnaireType,jdbcType=VARCHAR},
+                #{creationDate,jdbcType=TIMESTAMP},
+                #{startDate,jdbcType=TIMESTAMP},
+                #{endDate,jdbcType=TIMESTAMP},
+                #{createdBy,jdbcType=VARCHAR},
+                #{belongToProject,jdbcType=VARCHAR});
+    </insert>
+
+    <delete id="deleteQuestionnaireById" parameterType="com.example.demo.dao.entity.QuestionnaireEntity">
+        delete from project_info
+        where id = #{id,jdbcType=INTEGER};
+    </delete>
+
+    <update id="updateQuestionnaireById" parameterType="com.example.demo.dao.entity.QuestionnaireEntity">
+        update questionnaire_info
+        <set>
+            <if test="questionnaireName != null">
+                questionnaireName = #{questionnaireName,jdbcType=VARCHAR},
+            </if>
+            <if test="questionnaireDescription != null">
+                questionnaireDescription = #{questionnaireDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="questionnaireType != null">
+                questionnaireType = #{questionnaireType,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDate != null">
+                creationDate = #{creationDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="startDate != null">
+                startDate = #{startDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endDate != null">
+                endDate = #{endDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                createdBy = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="belongToProject != null">
+                belongToProject = #{belongToProject,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR};
+    </update>
+
+    <select id="selectQuestionnaireById" parameterType="java.lang.String" resultType="com.example.demo.dao.entity.QuestionnaireEntity">
+        select *
+        from questionnaire_info
+        where id = #{id,jdbcType=INTEGER};
+    </select>
+</mapper>

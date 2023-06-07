@@ -1,5 +1,5 @@
 onload = () => {
-  $('#headerUsername').text($util.getItem('userInfo').username)
+  $('#headerUsername').text($util.getItem('userInfo')[0].username)
   handleHeaderLoad()
   fetchProjectList()
 }
@@ -8,7 +8,7 @@ let projectList = []
 
 const fetchProjectList = () => {
   let params = {
-    createdBy: $util.getItem('userInfo').username,
+    createdBy: $util.getItem('userInfo')[0].username,
     projectName: $('#projectName').val()
   }
   $.ajax({
@@ -27,7 +27,7 @@ const fetchProjectList = () => {
             <div class="list-header">
               <div>${item.projectName}</div>
               <div>
-                <button type="button" class="btn btn-link" onclick="onCreateQuestionnaire()">创建问卷</button>
+                <button type="button" class="btn btn-link" onclick="onCreateQuestionnaire('${item.id}', '${item.projectName}')">创建问卷</button>
                 <button type="button" class="btn btn-link" onclick="onSeeProject('${item.id}')">查看</button>
                 <button type="button" class="btn btn-link" onclick="onEditProject('${item.id}')">编辑</button>
                 <button type="button" class="btn btn-link" onclick="onDelProject('${item.id}')">删除</button>
@@ -43,11 +43,13 @@ const fetchProjectList = () => {
   })
 }
 
-const onCreatePrject = () => {
+const onCreateProject = () => {
   location.href = "/pages/createProject/index.html"
 }
 
-const onCreateQuestionnaire = () => {
+const onCreateQuestionnaire = (id, projectName) => {
+  $util.setPageParam('createQuestionnaireid', id)
+  $util.setPageParam('createQuestionnaireprojectName', projectName)
   location.href = "/pages/createQuestionnaire/index.html"
 }
 

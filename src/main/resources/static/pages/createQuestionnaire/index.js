@@ -1,9 +1,23 @@
 onload = () => {
-  $('#headerUsername').text($util.getItem('userInfo').username)
+
+  // import createQuestionnaire from '../createNewQuestionnaire/index.js'
+  $('#headerUsername').text($util.getItem('userInfo')[0].username)
   $('#headerDivB').text('创建问卷')
+
+  let id = $util.getPageParam('createQuestionnaireid')
+  let projectName = $util.getPageParam('createQuestionnaireprojectName')
+  console.log(id, 'projectId')
+  console.log(projectName, 'projectName')
+
+  $('#selectLeo').append("<option value="+id+">"+projectName+"</option>");
+  $('#selectLeo').attr('disabled', true);
+  $('#selectLeo').val(id);
+
+  // createQuestionnaire(projectId, projectName)
 }
 
 const onCreateTemplate = () => {
+  $util.setPageParam('questionnaireType', $('#selectLeo1').val())
   location.href = "/pages/createNewQuestionnaire/index.html"
 }
 
