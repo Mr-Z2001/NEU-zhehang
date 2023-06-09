@@ -1,11 +1,13 @@
 # EXP 分支
 
+可以在这里讨论：[discussions](https://github.com/Mr-Z2001/NEU-zhehang/discussions/3)
+
 ## 功能计数
 
-[x] 创建问卷
-[x] 发布问卷
-[x] 答卷页面
-[x] 数据统计
+- [x] 创建问卷
+- [x] 发布问卷
+- [x] 答卷页面
+- [x] 数据统计
 
 ## 运行方式
 
