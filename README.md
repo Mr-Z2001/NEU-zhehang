@@ -1,5 +1,12 @@
 # EXP 分支
 
+## 功能计数
+
+[x] 创建问卷
+[x] 发布问卷
+[x] 答卷页面
+[x] 数据统计
+
 ## 运行方式
 
 ``` sh
@@ -11,6 +18,8 @@ $ java -jar .\target\demo-0.0.1-SNAPSHOT.jar
 
 数据库名称：myweb
 
+可以从 dump.txt 中恢复 mysql 数据库。
+
 |名称|数据库用途|
 | --- | --- |
 | `ans_info`    |答案信息|
@@ -21,7 +30,7 @@ $ java -jar .\target\demo-0.0.1-SNAPSHOT.jar
 前两个表定义：
 
 ``` sql
-CREATE TABLE form_info(  
+CREATE TABLE form_info(
     id VARCHAR(255) NOT NULL PRIMARY KEY,
     projectId VARCHAR(255),
     formName VARCHAR(255),
@@ -38,7 +47,7 @@ CREATE TABLE form_info(
 ```
 
 ``` sql
-CREATE TABLE ans_info(  
+CREATE TABLE ans_info(
     id VARCHAR(255) NOT NULL PRIMARY KEY,
     projectId VARCHAR(255),
     formId VARCHAR(255),
