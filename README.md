@@ -1,5 +1,12 @@
 # EXP 分支
 
+## 运行方式
+
+``` sh
+$ mvn clean package
+$ java -jar .\target\demo-0.0.1-SNAPSHOT.jar
+```
+
 ## 数据库组织
 
 数据库名称：myweb
@@ -50,3 +57,5 @@ alter database myweb character set utf8;
 ## 特殊说明
 
 比较自由的改动了一些原来的内容，所以如果有什么问题，可以从每一个 `*Mapper.xml` 里找到数据库对应设计。
+
+额外增加了 `chart.js` 用于展示统计数据。
