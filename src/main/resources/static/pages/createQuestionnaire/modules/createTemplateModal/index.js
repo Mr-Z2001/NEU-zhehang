@@ -1,3 +1,23 @@
+onload = () => {
+  $.ajax({
+    url: API_BASE_URL + '/queryProjectList',
+    type: "POST",
+    data: JSON.stringify(params),
+    dataType: "json",
+    contentType: "application/json",
+    success(res) {
+      projectList = res.data
+      $('#type-qst').html('<option value="0" disabled selected hidden>请选择</option>')
+
+      res.data.map(item => {
+        $('#type-qst').append(`
+          <option value="${item.id}">${item.projectName}</option>
+        `)
+      })
+    }
+  })
+}
+
 const handleConfirm = () => {
   let params = {
     type: $('#type').val(),

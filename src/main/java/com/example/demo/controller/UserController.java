@@ -1,9 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.beans.HttpResponseEntity;
-import com.example.demo.common.utils.UUIDUtil;
 import com.example.demo.dao.entity.UserEntity;
 import com.example.demo.service.UserService;
+
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,19 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
-import java.util.List;
-
 @RestController
 @RequestMapping("/admin")
 public class UserController {
   @Autowired private UserService userService;
 
-  @RequestMapping(
-      value = "/userLogin",
-      method = RequestMethod.POST,
-      headers = "Accept=application/json")
-  public HttpResponseEntity userLogin(@RequestBody UserEntity userEntity) {
+  @RequestMapping(value = "/userLogin", method = RequestMethod.POST,
+                  headers = "Accept=application/json")
+  public HttpResponseEntity
+  userLogin(@RequestBody UserEntity userEntity) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     try {
       List<UserEntity> hasUser = userService.selectUserInfo(userEntity);
@@ -33,7 +30,7 @@ public class UserController {
         httpResponseEntity.setMessage("用户名或密码错误");
       } else {
         httpResponseEntity.setCode("666");
-        httpResponseEntity.setData(hasUser);
+        httpResponseEntity.setData(hasUser.get(0));
         httpResponseEntity.setMessage("登陆成功");
       }
     } catch (Exception e) {
@@ -43,11 +40,10 @@ public class UserController {
     return httpResponseEntity;
   }
 
-  @RequestMapping(
-      value = "/addUserinfo",
-      method = RequestMethod.POST,
-      headers = "Accept=application/json")
-  public HttpResponseEntity addUserinfo(@RequestBody UserEntity userEntity) {
+  @RequestMapping(value = "/addUserinfo", method = RequestMethod.POST,
+                  headers = "Accept=application/json")
+  public HttpResponseEntity
+  addUserinfo(@RequestBody UserEntity userEntity) {
 
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     try {
@@ -68,11 +64,10 @@ public class UserController {
     return httpResponseEntity;
   }
 
-  @RequestMapping(
-      value = "/modifyUserinfo",
-      method = RequestMethod.POST,
-      headers = "Accept=application/json")
-  public HttpResponseEntity modifyUserinfo(@RequestBody UserEntity userEntity) {
+  @RequestMapping(value = "/modifyUserinfo", method = RequestMethod.POST,
+                  headers = "Accept=application/json")
+  public HttpResponseEntity
+  modifyUserinfo(@RequestBody UserEntity userEntity) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     try {
       int result = userService.modifyUserInfo(userEntity);
@@ -92,11 +87,10 @@ public class UserController {
     return httpResponseEntity;
   }
 
-  @RequestMapping(
-      value = "/deleteUserById",
-      method = RequestMethod.POST,
-      headers = "Accept=application/json")
-  public HttpResponseEntity deleteUserinfo(@RequestBody UserEntity userEntity) {
+  @RequestMapping(value = "/deleteUserById", method = RequestMethod.POST,
+                  headers = "Accept=application/json")
+  public HttpResponseEntity
+  deleteUserinfo(@RequestBody UserEntity userEntity) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     try {
       int result = userService.deleteUserById(userEntity);
@@ -116,11 +110,10 @@ public class UserController {
     return httpResponseEntity;
   }
 
-  @RequestMapping(
-      value = "/queryUserList",
-      method = RequestMethod.POST,
-      headers = "Accept=application/json")
-  public HttpResponseEntity queryUserList(@RequestBody UserEntity userEntity) {
+  @RequestMapping(value = "/queryUserList", method = RequestMethod.POST,
+                  headers = "Accept=application/json")
+  public HttpResponseEntity
+  queryUserList(@RequestBody UserEntity userEntity) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     try {
       List<UserEntity> hasUser = userService.queryUserList(userEntity);

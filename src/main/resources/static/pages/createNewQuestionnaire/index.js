@@ -1,5 +1,5 @@
 onload = () => {
-  $('#headerUsername').text($util.getItem('userInfo')[0].username)
+  $('#headerUsername').text($util.getItem('userInfo').username)
   $('#headerDivB').text('创建调查问卷')
 
   $('#startTime').datetimepicker({
@@ -18,39 +18,41 @@ onload = () => {
     autoclose: true, // 选中自动关闭
     todayBtn: true // 显示今日按钮
   })
-
-    // let projectId = $util.getPageParam('createQuestionnaireid')
-    // console.log(projectId, 'projectId')
-    // let projectName = $util.getPageParam('createQuestionnaireprojectName')
-    // $('#projectName').text(projectName)
-    // console.log(projectName, 'projectName')
-    // createQuestionnaire(projectId, projectName)
 }
 
-function createQuestionnaire(){
-    let params = {
-        questionnaireName: $('#surveyName').val(),
-        startDate: $('#startDate').val(),
-        endDate: $('#endDate').val(),
-        creationDate: new Date().getTime(),
-        questionnaireDescription: $('#surveyDescription').val(),
-        createdBy: $util.getItem('userInfo')[0].username,
-        belongToProject: $util.getPageParam('createQuestionnaireid'),
-        questionnaireType: $util.getPageParam('questionnaireType')
+handleConfirm = () => {
+  let cur = $util.getItem('curform');
+  let params = {
+    formInfo: $('#surveyDescription').val(),
+    formName: $('#surveyName').val(),
+    startTime: $('#startTime-text').val(),
+    endTime: $('#endTime-text').val(),
+    createdBy: $util.getItem('userInfo').username,
+    projectId: cur.projectId,
+    formType: cur.formType
+  }
+
+  if (!params.createdBy) return alert('账号不能为空！')
+  if (!params.formName) return alert('问卷名称不能为空！')
+  if (!params.startTime) return alert('开始时间不能为空！')
+  if (!params.endTime) return alert('结束时间不能为空！')
+
+
+  $.ajax({
+    url: API_BASE_URL + '/addFormInfo',
+    type: 'POST',
+    data: JSON.stringify(params),
+    dataType: 'json',
+    contentType: 'application/json',
+    success(res) {
+      if (res.code === "666") {
+        console.log(res.data);
+        params.id = res.data;
+        $util.setItem('curform', JSON.stringify(params));
+        location.href = '/pages/designQuestionnaire/index.html'
+      } else {
+        alert(res.message)
+      }
     }
-    $.ajax({
-        url: API_BASE_URL + '/addQuestionnaire',
-        type: "POST",
-        data: JSON.stringify(params),
-        dataType: "json",
-        contentType: "application/json",
-        success(res) {
-            if (res.code === 666) {
-                alert('创建成功')
-                location.href = '/pages/project/index.html'
-            } else {
-                alert(res.message)
-            }
-        }
-    })
+  })
 }

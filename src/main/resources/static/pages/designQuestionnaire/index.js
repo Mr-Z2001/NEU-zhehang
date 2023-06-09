@@ -29,7 +29,8 @@ const onAddQuestion = (type) => {
       break;
   }
   $('#problem').append(ele)
-  problem.push({ problemName: '', mustAnswer: true, option: [{}] })
+  problem.push({ problemName: '', problemType: type, mustAnswer: true, option: [{}] })
+  $util.setItem('curProblems', JSON.stringify(problem));
 
   $(".question").hover(() => {
     let problemIndex = $('.question:hover').attr('data-problemIndex')
@@ -223,6 +224,7 @@ const singleChoiceEditFinish = (problemIndex) => {
       </div>
     `)
   })
+  $util.setItem('curProblems', JSON.stringify(problem));
 }
 
 const handleAddMultipleChoice = () => {
@@ -494,15 +496,26 @@ const handleModifyTitle = () => {
 
 
 const handleEditFinish = () => {
-  let params = {}
+  let form = {
+    Title: questionnaireTitle,
+    Description: questionnaireDescription,
+    Problem: problem
+  }
+  let params = $util.getItem('curform')
+  if (!params) alert('先创建问卷再编辑问卷')
+
+  params.formContent = JSON.stringify(form)
+  console.log(JSON.stringify(params))
+
   $.ajax({
-    url: API_BASE_URL + '/modifyQuestionnaire',
+    url: API_BASE_URL + '/modifyFormInfo',
     type: "POST",
     data: JSON.stringify(params),
     dataType: "json",
-    contentType: "application/jsoresn",
+    contentType: "application/json",
     success(res) {
       console.log(res)
+      location.href = '/pages/questionnaire/index.html'
     }
   })
 }

@@ -7,9 +7,10 @@ mybatis:
   # 开启二极缓存
   configuration:
     cache-enabled: true
+
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/myweb
+    url: jdbc:mysql://localhost:3306/myweb?useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: zcx.11123
+    password: '123456'
     driver-class-name: com.mysql.cj.jdbc.Driver

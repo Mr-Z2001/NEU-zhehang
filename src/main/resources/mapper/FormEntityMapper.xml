@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.FormEntityMapper">
+
+    <select id="queryFormList" parameterType="com.example.demo.dao.entity.FormEntity"
+            resultType="com.example.demo.dao.entity.FormEntity">
+        select *
+        from form_info;
+    </select>
+
+    <select id="queryFormListByPid" parameterType="com.example.demo.dao.entity.FormEntity"
+            resultType="com.example.demo.dao.entity.FormEntity">
+        select *
+        from form_info
+        where projectId = #{projectId,jdbcType=VARCHAR};
+    </select>
+
+    <insert id="insert" parameterType="com.example.demo.dao.entity.FormEntity">
+        insert into form_info(  id,
+                                 projectId,
+                                 formName,
+                                 formType,
+                                 formInfo,
+                                 startTime,
+                                 endTime,
+                                 createdBy,
+                                 creationDate,
+                                 lastUpdatedBy,
+                                 lastUpdateDate,
+                                 formContent)
+        values (#{id,jdbcType=VARCHAR},
+                #{projectId,jdbcType=VARCHAR},
+                #{formName,jdbcType=VARCHAR},
+                #{formType,jdbcType=VARCHAR},
+                #{formInfo,jdbcType=VARCHAR},
+                #{startTime,jdbcType=TIMESTAMP},
+                #{endTime,jdbcType=TIMESTAMP},
+                #{createdBy,jdbcType=VARCHAR},
+                #{creationDate,jdbcType=TIMESTAMP},
+                #{lastUpdatedBy,jdbcType=VARCHAR},
+                #{lastUpdateDate,jdbcType=TIMESTAMP},
+                #{formContent,jdbcType=VARCHAR});
+    </insert>
+
+    <delete id="deleteFormById" parameterType="com.example.demo.dao.entity.FormEntity">
+        delete from form_info
+        where id = #{id,jdbcType=VARCHAR};
+    </delete>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.dao.entity.FormEntity">
+        update form_info
+        <set>
+            <if test="projectId != null">
+                projectId = #{projectId,jdbcType=VARCHAR},
+            </if>
+            <if test="formName != null">
+                formName = #{formName,jdbcType=VARCHAR},
+            </if>
+            <if test="formType != null">
+                formType = #{formType,jdbcType=VARCHAR},
+            </if>
+            <if test="formInfo != null">
+                formInfo = #{formInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                startTime = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                endTime = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                createdBy = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDate != null">
+                creationDate = #{creationDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdatedBy != null">
+                lastUpdatedBy = #{lastUpdatedBy,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateDate != null">
+                lastUpdateDate = #{lastUpdateDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="formContent != null">
+                formContent = #{formContent,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR};
+    </update>
+
+    <select id="selectFormInfo" parameterType="com.example.demo.dao.entity.FormEntity" resultType="com.example.demo.dao.entity.FormEntity">
+        select *
+        from form_info
+        where id = #{id,jdbcType=VARCHAR};
+    </select>
+</mapper>

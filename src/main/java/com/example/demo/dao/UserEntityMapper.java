@@ -1,13 +1,9 @@
 package com.example.demo.dao;
 
 import com.example.demo.dao.entity.UserEntity;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
-import java.util.Map;
 
 @Component
 @Mapper

@@ -1,23 +1,38 @@
 onload = () => {
-
-  // import createQuestionnaire from '../createNewQuestionnaire/index.js'
-  $('#headerUsername').text($util.getItem('userInfo')[0].username)
+  $('#headerUsername').text($util.getItem('userInfo').username)
   $('#headerDivB').text('创建问卷')
 
-  let id = $util.getPageParam('createQuestionnaireid')
-  let projectName = $util.getPageParam('createQuestionnaireprojectName')
-  console.log(id, 'projectId')
-  console.log(projectName, 'projectName')
+  let params = {
+    createdBy: $util.getItem('userInfo').username
+  }
 
-  $('#selectLeo').append("<option value="+id+">"+projectName+"</option>");
-  $('#selectLeo').attr('disabled', true);
-  $('#selectLeo').val(id);
+  $.ajax({
+    url: API_BASE_URL + '/queryProjectList',
+    type: "POST",
+    data: JSON.stringify(params),
+    dataType: "json",
+    contentType: "application/json",
+    success(res) {
+      projectList = res.data
+      $('#selectLeo-project').html('<option value="0" disabled selected hidden>请选择</option>')
 
-  // createQuestionnaire(projectId, projectName)
+      res.data.map(item => {
+        $('#selectLeo-project').append(`
+          <option value="${item.id}">${item.projectName}</option>
+        `)
+      })
+    }
+  })
 }
 
 const onCreateTemplate = () => {
-  $util.setPageParam('questionnaireType', $('#selectLeo1').val())
+  let params = {
+    projectId: $('#selectLeo-project').val(),
+    formType: $('#selectLeo-surveyType').val()
+  }
+
+  $util.setItem('curform', JSON.stringify(params))
+
   location.href = "/pages/createNewQuestionnaire/index.html"
 }
 

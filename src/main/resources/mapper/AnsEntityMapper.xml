@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.AnsEntityMapper">
+
+    <select id="queryAnsList" parameterType="com.example.demo.dao.entity.AnsEntity"
+            resultType="com.example.demo.dao.entity.AnsEntity">
+        select *
+        from ans_info;
+    </select>
+
+    <select id="queryAnsListByPid" parameterType="com.example.demo.dao.entity.AnsEntity"
+            resultType="com.example.demo.dao.entity.AnsEntity">
+        select *
+        from ans_info
+        where projectId = #{projectId,jdbcType=VARCHAR};
+    </select>
+
+    <select id="queryAnsListByFid" parameterType="com.example.demo.dao.entity.AnsEntity"
+            resultType="com.example.demo.dao.entity.AnsEntity">
+        select *
+        from ans_info
+        where formId = #{formId,jdbcType=VARCHAR};
+    </select>
+
+    <insert id="insert" parameterType="com.example.demo.dao.entity.AnsEntity">
+        insert into ans_info(  id,
+                                 projectId,
+                                 formId,
+                                 ansContent,
+                                 createdBy,
+                                 creationDate)
+        values (#{id,jdbcType=VARCHAR},
+                #{projectId,jdbcType=VARCHAR},
+                #{formId,jdbcType=VARCHAR},
+                #{ansContent,jdbcType=VARCHAR},
+                #{createdBy,jdbcType=VARCHAR},
+                #{creationDate,jdbcType=TIMESTAMP});
+    </insert>
+
+    <delete id="deleteAnsById" parameterType="com.example.demo.dao.entity.AnsEntity">
+        delete from ans_info
+        where id = #{id,jdbcType=VARCHAR};
+    </delete>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.dao.entity.AnsEntity">
+        update ans_info
+        <set>
+            <if test="projectId != null">
+                projectId = #{projectId,jdbcType=VARCHAR},
+            </if>
+            <if test="formId != null">
+                formId = #{formId,jdbcType=VARCHAR},
+            </if>
+            <if test="ansContent != null">
+                ansContent = #{ansContent,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                createdBy = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="creationDate != null">
+                creationDate = #{creationDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR};
+    </update>
+
+    <select id="selectAnsInfo" parameterType="com.example.demo.dao.entity.AnsEntity" resultType="com.example.demo.dao.entity.AnsEntity">
+        select *
+        from ans_info
+        where id = #{id,jdbcType=VARCHAR};
+    </select>
+</mapper>

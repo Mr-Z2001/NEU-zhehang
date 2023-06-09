@@ -1,12 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.common.utils.UUIDUtil;
-import com.example.demo.dao.entity.UserEntity;
 import com.example.demo.dao.UserEntityMapper;
+import com.example.demo.dao.entity.UserEntity;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserService {

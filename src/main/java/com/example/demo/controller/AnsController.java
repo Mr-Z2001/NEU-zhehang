@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.beans.HttpResponseEntity;
-import com.example.demo.dao.entity.ProjectEntity;
-import com.example.demo.service.ProjectService;
+import com.example.demo.dao.entity.AnsEntity;
+import com.example.demo.service.AnsService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -13,24 +13,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("")
-public class ProjectController {
-  @Autowired private ProjectService projectService;
+public class AnsController {
+  @Autowired private AnsService ansService;
 
-  @RequestMapping(value = "/queryProjectList", method = RequestMethod.POST,
+  @RequestMapping(value = "/queryAnsList", method = RequestMethod.POST,
                   headers = "Accept=application/json")
   public HttpResponseEntity
-  queryProjectList(@RequestBody ProjectEntity projectEntity) {
+  previewAnsSheet(@RequestBody AnsEntity ansEntity) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     try {
-      List<ProjectEntity> hasProject =
-          projectService.queryProjectList(projectEntity);
-      if (CollectionUtils.isEmpty(hasProject)) {
+      List<AnsEntity> hasAns = ansService.queryAnsList(ansEntity);
+      if (CollectionUtils.isEmpty(hasAns)) {
         httpResponseEntity.setCode("0");
         httpResponseEntity.setData("");
         httpResponseEntity.setMessage("查询失败");
       } else {
         httpResponseEntity.setCode("666");
-        httpResponseEntity.setData(hasProject);
+        httpResponseEntity.setData(hasAns);
         httpResponseEntity.setMessage("查询成功");
       }
     } catch (Exception e) {
@@ -40,17 +39,17 @@ public class ProjectController {
     return httpResponseEntity;
   }
 
-  @RequestMapping(value = "/addProjectInfo", method = RequestMethod.POST,
+  @RequestMapping(value = "/addAnsInfo", method = RequestMethod.POST,
                   headers = "Accept=application/json")
   public HttpResponseEntity
-  addProjectInfo(@RequestBody ProjectEntity projectEntity) {
+  addAnsInfo(@RequestBody AnsEntity ansEntity) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     try {
-      System.out.println("Project Service entered");
-      int result = projectService.addProjectInfo(projectEntity, "default_user");
+      System.out.println("Ans Service entered");
+      int result = ansService.addAnsInfo(ansEntity);
       if (result != 0) {
         httpResponseEntity.setCode("666");
-        httpResponseEntity.setData(result);
+        httpResponseEntity.setData(ansEntity.getId());
         httpResponseEntity.setMessage("创建成功");
       } else {
         httpResponseEntity.setCode("0");
@@ -64,13 +63,13 @@ public class ProjectController {
     return httpResponseEntity;
   }
 
-  @RequestMapping(value = "/deleteProjectById", method = RequestMethod.POST,
+  @RequestMapping(value = "/deleteAnsById", method = RequestMethod.POST,
                   headers = "Accept=application/json")
-  public ProjectEntity
-  deleteProjectById(@RequestBody ProjectEntity projectEntity) {
+  public AnsEntity
+  deleteAnsById(@RequestBody AnsEntity ansEntity) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     try {
-      int result = projectService.deleteProjectById(projectEntity);
+      int result = ansService.deleteAnsById(ansEntity);
       if (result != 0) {
         httpResponseEntity.setCode("666");
         httpResponseEntity.setData(result);
@@ -84,17 +83,16 @@ public class ProjectController {
       System.out.println(e.getMessage());
       e.printStackTrace();
     }
-    return projectEntity;
+    return ansEntity;
   }
 
-  @RequestMapping(value = "/modifyProjectInfo", method = RequestMethod.POST,
+  @RequestMapping(value = "/modifyAnsInfo", method = RequestMethod.POST,
                   headers = "Accept=application/json")
   public HttpResponseEntity
-  modifyProjectInfo(@RequestBody ProjectEntity projectEntity) {
+  modifyAnsInfo(@RequestBody AnsEntity ansEntity) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     try {
-      int result =
-          projectService.modifyProjectInfo(projectEntity, "default_user");
+      int result = ansService.modifyAnsInfo(ansEntity);
       if (result != 0) {
         httpResponseEntity.setCode("666");
         httpResponseEntity.setData(result);
@@ -111,21 +109,68 @@ public class ProjectController {
     return httpResponseEntity;
   }
 
-  @RequestMapping(value = "/selectProjectInfo", method = RequestMethod.POST,
+  @RequestMapping(value = "/selectAnsInfo", method = RequestMethod.POST,
                   headers = "Accept=application/json")
   public HttpResponseEntity
-  selectProjectInfo(@RequestBody ProjectEntity projectEntity) {
+  selectAnsInfo(@RequestBody AnsEntity ansEntity) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     try {
-      ProjectEntity hasProject =
-          projectService.selectProjectInfo(projectEntity);
-      if (hasProject == null) {
+      AnsEntity hasAns = ansService.selectAnsInfo(ansEntity);
+      if (hasAns == null) {
         httpResponseEntity.setCode("0");
         httpResponseEntity.setData("");
         httpResponseEntity.setMessage("查询失败");
       } else {
         httpResponseEntity.setCode("666");
-        httpResponseEntity.setData(hasProject);
+        httpResponseEntity.setData(hasAns);
+        httpResponseEntity.setMessage("查询成功");
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      e.printStackTrace();
+    }
+    return httpResponseEntity;
+  }
+
+  @RequestMapping(value = "/queryAnsListByPid", method = RequestMethod.POST,
+                  headers = "Accept=application/json")
+  public HttpResponseEntity
+  queryAnsListByPid(@RequestBody AnsEntity ansEntity) {
+    System.out.println(ansEntity.getProjectId());
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+    try {
+      List<AnsEntity> hasAns = ansService.queryAnsListByPid(ansEntity);
+      if (CollectionUtils.isEmpty(hasAns)) {
+        httpResponseEntity.setCode("0");
+        httpResponseEntity.setData("");
+        httpResponseEntity.setMessage("查询失败");
+      } else {
+        httpResponseEntity.setCode("666");
+        httpResponseEntity.setData(hasAns);
+        httpResponseEntity.setMessage("查询成功");
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      e.printStackTrace();
+    }
+    return httpResponseEntity;
+  }
+
+  @RequestMapping(value = "/queryAnsListByFid", method = RequestMethod.POST,
+                  headers = "Accept=application/json")
+  public HttpResponseEntity
+  queryAnsListByFid(@RequestBody AnsEntity ansEntity) {
+    System.out.println(ansEntity.getProjectId());
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+    try {
+      List<AnsEntity> hasAns = ansService.queryAnsListByFid(ansEntity);
+      if (CollectionUtils.isEmpty(hasAns)) {
+        httpResponseEntity.setCode("0");
+        httpResponseEntity.setData("");
+        httpResponseEntity.setMessage("查询失败");
+      } else {
+        httpResponseEntity.setCode("666");
+        httpResponseEntity.setData(hasAns);
         httpResponseEntity.setMessage("查询成功");
       }
     } catch (Exception e) {

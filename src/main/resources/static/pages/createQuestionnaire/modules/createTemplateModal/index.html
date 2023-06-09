@@ -1,4 +1,5 @@
-<div class="modal fade" id="createTemplateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="createTemplateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+	aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -11,9 +12,9 @@
 			</div>
 			<div class="modal-body">
 				<form role="form">
-          <div class="form-group">
-            <label for="type">所属类型</label>
-						<select id="type" class="form-control form-control-placeholder">
+					<div class="form-group">
+						<label for="type">所属类型</label>
+						<select id="type-qst" class="form-control form-control-placeholder">
 							<option value="0" disabled selected hidden>请选择</option>
 							<option value="1">类型一</option>
 							<option value="2">类型二</option>
@@ -21,16 +22,17 @@
 							<option value="4">类型四</option>
 							<option value="5">类型五</option>
 						</select>
-          </div>
-          <div class="form-group">
-            <label for="templateName">模板名称</label>
-            <input type="text" class="form-control" id="templateName" placeholder="请输入模板名称" />
-          </div>
-          <div class="form-group">
-            <label for="templateDescription">模板说明</label>
-            <textarea class="form-control" id="templateDescription" placeholder="请输入模板说明" rows="4"></textarea>
-          </div>
-        </form>
+					</div>
+					<div class="form-group">
+						<label for="templateName">模板名称</label>
+						<input type="text" class="form-control" id="templateName" placeholder="请输入模板名称" />
+					</div>
+					<div class="form-group">
+						<label for="templateDescription">模板说明</label>
+						<textarea class="form-control" id="templateDescription" placeholder="请输入模板说明"
+							rows="4"></textarea>
+					</div>
+				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭

@@ -13,13 +13,13 @@
                 <property name="url"
                           value="jdbc:mysql://localhost:3306/myweb?serverTimezone=Asia/Shanghai&amp;characterEncoding=utf-8"/>
                 <property name="username" value="root"/>
-                <property name="password" value="zcx.11123"/>
+                <property name="password" value="123456"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
         <mapper resource="mapper/UserEntityMapper.xml"/>
         <mapper resource="mapper/ProjectEntityMapper.xml"/>
-        <mapper resource="mapper/QuestionnaireEntityMapper.xml"/>
+        <mapper resource="mapper/FormEntityMapper.xml"/>
     </mappers>
 </configuration>

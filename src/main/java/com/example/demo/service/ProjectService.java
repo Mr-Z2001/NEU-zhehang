@@ -1,13 +1,11 @@
 package com.example.demo.service;
 
+import com.example.demo.common.utils.UUIDUtil;
 import com.example.demo.dao.ProjectEntityMapper;
 import com.example.demo.dao.entity.ProjectEntity;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.List;
-import com.example.demo.common.utils.UUIDUtil;
 
 @Service
 public class ProjectService {
@@ -19,9 +17,6 @@ public class ProjectService {
 
   public int addProjectInfo(ProjectEntity projectEntity, String userName) {
     projectEntity.setId(UUIDUtil.getOneUUID());
-//    projectEntity.setCreatedBy(userName);
-//    projectEntity.setProjectContent("default_content");
-    projectEntity.setCreationDate(new Date());
     int result = projectEntityMapper.insert(projectEntity);
     System.out.println("result:" + result);
     if (result != 0) {
@@ -35,7 +30,7 @@ public class ProjectService {
     return projectEntityMapper.updateByPrimaryKeySelective(projectEntity);
   }
 
-  public List<ProjectEntity> selectProjectInfo(ProjectEntity projectEntity) {
+  public ProjectEntity selectProjectInfo(ProjectEntity projectEntity) {
     return projectEntityMapper.selectProjectInfo(projectEntity);
   }
 
