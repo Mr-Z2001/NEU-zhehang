@@ -23,7 +23,11 @@ public class UserController {
   userLogin(@RequestBody UserEntity userEntity) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     try {
-      List<UserEntity> hasUser = userService.selectUserInfo(userEntity);
+      List<UserEntity> hasUser = userService.queryUserListByRedis(userEntity);
+      System.out.println(hasUser);
+      System.out.println(hasUser==null);
+      if(hasUser==null) hasUser = userService.selectUserInfo(userEntity);
+//      List<UserEntity> hasUser = userService.selectUserInfo(userEntity);
       if (CollectionUtils.isEmpty(hasUser)) {
         httpResponseEntity.setCode("0");
         httpResponseEntity.setData("");
@@ -49,6 +53,7 @@ public class UserController {
     try {
       int result = userService.addUserInfo(userEntity);
       if (result != 0) {
+        userService.addUserInfoToRedis(userEntity);
         httpResponseEntity.setCode("666");
         httpResponseEntity.setData(result);
         httpResponseEntity.setMessage("创建成功");
@@ -72,6 +77,7 @@ public class UserController {
     try {
       int result = userService.modifyUserInfo(userEntity);
       if (result != 0) {
+        userService.modifyUserInfoToRedis(userEntity);
         httpResponseEntity.setCode("666");
         httpResponseEntity.setData(result);
         httpResponseEntity.setMessage("修改成功");
@@ -95,6 +101,7 @@ public class UserController {
     try {
       int result = userService.deleteUserById(userEntity);
       if (result != 0) {
+        userService.deleteUserInfoFromRedis(userEntity);
         httpResponseEntity.setCode("666");
         httpResponseEntity.setData(result);
         httpResponseEntity.setMessage("删除成功");
