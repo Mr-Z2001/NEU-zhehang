@@ -1,6 +1,10 @@
 # NEU-zhehang
 NEU实训-哲航调查问卷
 
+---
+The main branch only contains the 2nd week's missions. Please turn to branch 'exp' for further missions.
+---
+
 # 项目简介
 东北大学计算机/软件学院实训项目，调查问卷
 
