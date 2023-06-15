@@ -79,7 +79,11 @@
             <version>1.7.21</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>4.2.2</version>
+        </dependency>
 
     </dependencies>
 
